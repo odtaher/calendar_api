@@ -6,6 +6,7 @@ class Event:
         self.start = start
         self.duration = duration
         self.description = description
+        self.errors = list()
 
     def to_dict(self):
         return {
@@ -14,3 +15,17 @@ class Event:
             "duration": self.duration,
             "description": self.description,
         }
+
+    def validate(self):
+        valid = True
+        if self.start is None:
+            self.errors.append("start_date has to be set")
+            valid = False
+        if self.duration is None or self.duration <= 0:
+            self.errors.append("duration has to be set to a positive number (minutes)")
+            valid = False
+        if not self.description or not len(self.description):
+            self.errors.append("description has to be set")
+            valid = False
+
+        return valid

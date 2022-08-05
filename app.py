@@ -36,5 +36,16 @@ def event_by_id(event_id: str):
     return {"ok": True, "event": Event(**event_row).to_dict()}
 
 
+@app.route("/events", methods=["POST"])
+def create_event():
+    event = Event(**dict(request.get_data()))
+    if not event.validate():
+        return {"ok": False, "errors": event.errors}
+
+    new_id = events_db.events.insert_one(event.to_dict())
+    return {"ok": True, "event": new_id}
+
+
 def _error_response(message):
     return {"ok": False, "error": message}
+
