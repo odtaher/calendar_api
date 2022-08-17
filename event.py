@@ -27,7 +27,7 @@ class Event:
             self.all_day = self.all_day == "1" or str(self.all_day).lower() == "true"
         if type(self.start).__name__ == "str":
             self.start = datetime.strptime(self.start, Event.FMT_FULL)
-        if not self.all_day and type(self.end).__name__ == "str":
+        if type(self.end).__name__ == "str":
             self.end = datetime.strptime(self.end, Event.FMT_FULL)
 
 
