@@ -23,12 +23,13 @@ class Event:
         self._reformat()
 
     def _reformat(self):
-        if type(self.start).__name__ == "str":
-            self.start = datetime.strptime(self.start, Event.FMT_FULL)
-        if type(self.end).__name__ == "str":
-            self.end = datetime.strptime(self.end, Event.FMT_FULL)
         if type(self.all_day).__name__ != "bool":
             self.all_day = self.all_day == "1" or str(self.all_day).lower() == "true"
+        if type(self.start).__name__ == "str":
+            self.start = datetime.strptime(self.start, Event.FMT_FULL)
+        if not self.all_day and type(self.end).__name__ == "str":
+            self.end = datetime.strptime(self.end, Event.FMT_FULL)
+
 
     def to_dict(self, with_id=True):
         ret = vars(self)
@@ -93,7 +94,7 @@ class Event:
         if self.start is None:
             self.errors.append("start date/time has to be set")
             valid = False
-        if self.end is None:
+        if self.end is None and not self.all_day:
             self.errors.append("end date/time has to be set")
             valid = False
         if not self.description or not len(self.description):

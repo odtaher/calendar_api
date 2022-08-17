@@ -1,7 +1,7 @@
 API_ENDPOINT="http://127.0.0.1:8081/"
 
-MONGO_HOST = "mongodb"
-# MONGO_HOST = "127.0.0.1"
+# MONGO_HOST = "mongodb"
+MONGO_HOST = "127.0.0.1"
 MONGO_PORT = 27017
 MONGO_USER = "root"
 MONGO_PASSWORD = "root"
